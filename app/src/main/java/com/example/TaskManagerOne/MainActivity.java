@@ -5,15 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private FloatingActionButton mFABAdd;
     private String mText = "";
+    private String mDate = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +64,38 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 mText = input.getText().toString();
-                                mTasks.addLast(mText);
+
+                                AlertDialog.Builder setDate = new AlertDialog.Builder(MainActivity.this);
+                                setDate.setTitle("Set a Due Date");
+                                final Calendar c= Calendar.getInstance();
+                                int year = c.get(Calendar.YEAR);
+                                int month = c.get(Calendar.MONTH);
+                                int day = c.get(Calendar.DAY_OF_MONTH);
+
+                                DatePickerDialog dueDate = new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
+                                    @Override
+                                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                        mDate = (dayOfMonth + "/" + (month+1) + "/" + year);
+                                    }
+                                },
+                                        year,
+                                        month,
+                                        day
+                                );
+                                dueDate.show();
+                                setDate.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        mTasks.addLast(mText);
+                                        mTasks.addLast(mDate);
+                                    }
+                                });
+                                setDate.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                });
                             }
                         });
                         createTask.setNegativeButton("No", new DialogInterface.OnClickListener() {
