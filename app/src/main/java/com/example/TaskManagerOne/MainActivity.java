@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int tasksNumber = mTasks.size();
+                //ask user for confirmation if they want to make a new task
                 AlertDialog.Builder confirm = new AlertDialog.Builder(MainActivity.this);
                 confirm.setTitle("Confirmation");
                 confirm.setMessage("Create New Task?");
@@ -54,12 +55,13 @@ public class MainActivity extends AppCompatActivity {
                 confirm.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        //ask user for name of task
                         AlertDialog.Builder createTask = new AlertDialog.Builder(MainActivity.this);
                         createTask.setTitle("Enter a Name");
                         final EditText input = new EditText(MainActivity.this);
                         input.setInputType(InputType.TYPE_CLASS_TEXT);
                         createTask.setView(input);
-                        // Set up the buttons
+                        // ask user for due date of task
                         createTask.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
