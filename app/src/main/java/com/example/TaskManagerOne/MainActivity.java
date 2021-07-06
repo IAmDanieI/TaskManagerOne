@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private WordListAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private FloatingActionButton mFABAdd;
-    private String m_Text = "";
+    private String mText = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
                         createTask.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                m_Text = input.getText().toString();
-                                mTasks.addLast(m_Text);
+                                mText = input.getText().toString();
+                                mTasks.addLast(mText);
                             }
                         });
                         createTask.setNegativeButton("No", new DialogInterface.OnClickListener() {
